@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "nginx-deployment"
+  namespace: "default"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "nginx"
+  template:
+    metadata:
+      labels:
+        app: "nginx"
+    spec:
+      nodeSelector:
+        type: autodeploy
+      containers:
+      - image: apache:apache
+        imagePullPolicy: Always
+        name: "nginx"
+        ports:
+        - containerPort: 80
